@@ -13,7 +13,9 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QList>
+#include <QLocale>
 #include <QSettings>
+#include <QTextCodec>
 #include "input/InputComponent.h"
 #include "system/SystemComponent.h"
 #include "Version.h"
@@ -487,7 +489,15 @@ QVariantList SettingsComponent::settingDescriptions()
 bool SettingsComponent::loadDescription()
 {
   QJsonParseError err;
-  auto doc = Utils::OpenJsonDocument(":/settings/settings_description.json", &err);
+  QLocale locale = QLocale::system();
+  QString localeName = locale.name();
+  QString jsonPath = ":/settings/settings_description.json";
+  QFileInfo fi(":/settings/settings_description_"+ localeName + ".json");
+  if (fi.exists())
+  {
+    jsonPath = ":/settings/settings_description_"+ localeName + ".json";
+  }
+  auto doc = Utils::OpenJsonDocument(jsonPath, &err);
   if (doc.isNull())
   {
     qCritical() << "Failed to read settings description:" << err.errorString();
@@ -573,11 +583,14 @@ void SettingsComponent::parseSection(const QJsonObject& sectionObject)
     int vPlatformMask = platformMaskFromObject(valobj);
     SettingsValue* setting = new SettingsValue(valobj.value("value").toString(), defaultval, (quint8)vPlatformMask, this);
 
-    if (valobj.contains("display_name"))
+    if (valobj.contains("display_name")){
       setting->setDisplayName(valobj.value("display_name").toString());
-
-    if (valobj.contains("help"))
+      qDebug() << "设置：" << valobj.value("display_name").toString();
+		}
+    if (valobj.contains("help")) {
       setting->setHelp(valobj.value("help").toString());
+      qDebug() << "设置提示：" << valobj.value("help").toString();
+    }
 
     setting->setHasDescription(true);
     setting->setHidden(valobj.value("hidden").toBool(false));
