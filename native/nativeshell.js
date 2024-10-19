@@ -1,4 +1,6 @@
-const jmpInfo = JSON.parse(window.atob("@@data@@"));
+const jmpInfo = JSON.parse(decodeURIComponent(window.atob("@@data@@").split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join('')));
 window.jmpInfo = jmpInfo;
 
 const features = [
