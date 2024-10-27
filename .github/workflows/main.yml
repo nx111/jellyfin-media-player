@@ -159,9 +159,8 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Install dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install --yes gnupg debsigs devscripts
+      sudo apt-get update
+      sudo apt-get install --yes gnupg debsigs devscripts
     - name: Docker Build
       run: |
         docker build -f deployment/Dockerfile.debian -t builddeb --build-arg TAG=${{ matrix.tag }} --build-arg IMG=ubuntu deployment
@@ -229,9 +228,8 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Install dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install --yes gnupg debsigs devscripts
+      sudo apt-get update
+      sudo apt-get install --yes gnupg debsigs devscripts
     - name: Docker Build
       run: |
         docker build -f deployment/Dockerfile.debian -t builddeb --build-arg TAG=${{ matrix.tag }} --build-arg IMG=debian deployment
