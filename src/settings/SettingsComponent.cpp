@@ -1,6 +1,10 @@
+#if _MSC_VER >= 1600
+#pragma execution_character_set("utf-8")
+#endif
 #include <QDebug>
 #include <QFile>
 #include <QFileInfo>
+#include <QProcessEnvironment>
 #include "SettingsComponent.h"
 #include "SettingsSection.h"
 #include "Paths.h"
@@ -13,7 +17,9 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QList>
+#include <QLocale>
 #include <QSettings>
+#include <QTextCodec>
 #include "input/InputComponent.h"
 #include "system/SystemComponent.h"
 #include "Version.h"
@@ -487,7 +493,20 @@ QVariantList SettingsComponent::settingDescriptions()
 bool SettingsComponent::loadDescription()
 {
   QJsonParseError err;
-  auto doc = Utils::OpenJsonDocument(":/settings/settings_description.json", &err);
+  #if defined(Q_OS_LINUX) || defined(Q_OS_FREEBSD)
+  QString localeName = QProcessEnvironment::systemEnvironment().value("LANG").split(".").first();
+  #else
+  QLocale locale;
+  QString localeName = QLocale::languageToString(locale.language());
+  #endif
+
+  QString jsonPath = ":/settings/settings_description.json";
+  QFileInfo fi(":/settings/settings_description_"+ localeName + ".json");
+  if (fi.exists())
+  {
+    jsonPath = ":/settings/settings_description_"+ localeName + ".json";
+  }
+  auto doc = Utils::OpenJsonDocument(jsonPath, &err);
   if (doc.isNull())
   {
     qCritical() << "Failed to read settings description:" << err.errorString();
@@ -540,7 +559,9 @@ void SettingsComponent::parseSection(const QJsonObject& sectionObject)
   auto section = new SettingsSection(sectionName, (quint8)platformMask, sectionOrder, this);
   section->setHidden(sectionObject.value("hidden").toBool(false));
   section->setStorage(sectionObject.value("storage").toBool(false));
-
+  QString sectionTitle = sectionObject.value("title").toString();
+  if (sectionObject.contains("title"))
+      section->setTitle(sectionTitle);
   auto values = sectionObject.value("values").toArray();
   int order = 0;
   for(auto val : values)
@@ -574,10 +595,10 @@ void SettingsComponent::parseSection(const QJsonObject& sectionObject)
     SettingsValue* setting = new SettingsValue(valobj.value("value").toString(), defaultval, (quint8)vPlatformMask, this);
 
     if (valobj.contains("display_name"))
-      setting->setDisplayName(valobj.value("display_name").toString());
+      setting->setDisplayName(QString::fromUtf8(valobj.value("display_name").toString().toUtf8().constData()));
 
     if (valobj.contains("help"))
-      setting->setHelp(valobj.value("help").toString());
+      setting->setHelp(QString::fromUtf8(valobj.value("help").toString().toUtf8().constData()));
 
     setting->setHasDescription(true);
     setting->setHidden(valobj.value("hidden").toBool(false));
