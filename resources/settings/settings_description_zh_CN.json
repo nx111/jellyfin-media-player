@@ -1,0 +1,705 @@
+[
+  {
+    "section": "__meta__",
+    "version": 6
+  },
+  {
+    "section": "state",
+    "hidden": true,
+    "storage": true,
+    "values":[
+      {
+        "value": "geometry",
+        "default": "",
+        "hidden": true
+      }
+    ]
+  },
+  {
+    "section": "main",
+    "title": "主要",
+    "order": 1,
+    "values": [
+      {
+        "value": "webMode",
+        "default": "desktop",
+        "hidden": true,
+        "possible_values": [
+          [ "desktop", "desktop" ],
+          [ "tv", "tv" ]
+        ]
+      },
+      {
+        "value": "layout",
+        "default": "desktop",
+        "hidden": true,
+        "possible_values": [
+          [ "desktop", "desktop" ],
+          [ "tv", "tv" ]
+        ]
+      },
+      {
+        "value": "fullscreen",
+        "display_name": "全屏",
+        "help": "应用强行进入全屏模式.\n提示: 常规 HTML5 全屏仍可用.",
+        "default": false,
+        "platforms_excluded": "oe"
+      },
+      {
+        "value": "minimizeOnDefocus",
+        "default": false,
+        "platforms": [ "windows" ],
+        "hidden": true
+      },
+      {
+        "value": "alwaysOnTop",
+        "display_name": "前端显示",
+        "help": "保持 Jellyfin Media Player 在其它窗口上面.",
+        "default": false
+      },
+      {
+        "value": "hdmi_poweron",
+        "default": false,
+        "hidden": true,
+        "platforms": [ "oe_rpi" ]
+      },
+      {
+        "value": "disablemouse",
+        "default": false,
+        "hidden": true
+      },
+      {
+        "value": "logLevel",
+        "default": "debug",
+        "hidden": true,
+        "possible_values": [
+          [ "trace", "trace" ],
+          [ "debug", "debug" ],
+          [ "info", "info" ],
+          [ "warn", "warn" ],
+          [ "error", "error" ],
+          [ "fatal", "fatal" ],
+          [ "disable", "disable" ]
+        ]
+      },
+      {
+        "value": "useOpenGL",
+        "display_name": "使用 OpenGL",
+        "help": "控制显示模式",
+        "default": false,
+        "platforms": [ "windows" ]
+      },
+      {
+        "value": "showPowerOptions",
+        "default": true,
+        "hidden": true
+      },
+      {
+        "value": "useSystemVideoCodecs",
+        "default": [
+          {
+            "value": true,
+            "platforms": [ "oe" ]
+          },
+          {
+            "value": false
+          }
+        ],
+        "hidden": true
+      },
+      {
+        "value": "forceFSScreen",
+        "display_name": "强行全屏",
+        "help": "强行使用指定显示器全屏显示.",
+        "platforms_excluded": [ "oe" ],
+        "default": ""
+      },
+      {
+        "value": "forceAlwaysFS",
+        "default": false,
+        "hidden": true
+      },
+      {
+        "value": "sdlEnabled",
+        "default": true,
+        "hidden": true
+      },
+      {
+        "value": "checkForUpdates",
+        "display_name": "检查更新",
+        "help": "允许用户禁止插件脚本升级.",
+        "default": true
+      },
+      {
+        "value": "enableInputRepeat",
+        "display_name": "启用重复输入",
+        "help": "允许禁止输入控制的重复.",
+        "default": true
+      },
+      {
+        "value": "ignoreSSLErrors",
+        "default": false,
+        "hidden": true
+      },
+      {
+        "value": "autodetectCertBundle",
+        "display_name": "自动探测绑定证书",
+        "help": "允许为 TLS 使用系统证书.",
+        "default": true,
+        "platforms": [ "linux" ]
+      },
+      {
+        "value": "userWebClient",
+        "default": "",
+        "hidden": true
+      },
+      {
+        "value": "enableWindowsMediaIntegration",
+        "display_name": "启用Windows 媒体集成",
+        "default": true,
+        "platforms": [ "windows" ]
+      },
+      {
+        "value": "enableWindowsTaskbarIntegration",
+        "display_name": "启用Windows任务栏集成",
+        "default": true,
+        "platforms": [ "windows" ]
+      }
+    ]
+  },
+  {
+    "section": "plugins",
+    "title": "插件",
+    "order": 5,
+    "values": [
+      {
+        "value": "skipintro",
+        "display_name": "跳过片头",
+        "help": "启用内置的基于 jumoog的 跳过片头插件 (https://github.com/jumoog/intro-skipper).",
+        "default": false
+      }
+    ]
+  },
+  {
+    "section": "audio",
+    "title": "音频",
+    "order": 2,
+    "values": [
+      {
+        "value": "devicetype",
+        "display_name": "设备类型",
+        "help": "设置设备类型. 可以是 \"基本\", \"S/PDIF\", 或 \"HDMI\".\n\n- 基本: 禁用直通.\n- S/PDIF: 将环绕立体声转码为特殊格式.\n- HDMI: 支持额外的直通选项.",
+        "default": "basic",
+        "possible_values": [
+          [ "basic", "基本" ],
+          [ "spdif", "S/PDIF" ],
+          [ "hdmi", "HDMI" ]
+        ]
+      },
+      {
+        "value": "channels",
+        "display_name": "频道",
+        "help": "设置允许多少个声道. 在MacOS上默认是 \"双声道\" ，其它默认是 \"自动\".\n\n- 自动: 自动设置.\n- 双声道: 双通道立体声.\n- 5.1 环绕声音: 5.1环绕立体声.\n- 7.1 环绕声音:  7.1 环绕立体声.",
+        "default": [
+          {
+            "value": "auto",
+            "platforms": [ "osx" ]
+          },
+          {
+            "value": "2.0"
+          }
+        ],
+        "possible_values": [
+          [ "auto", "自动" ],
+          [ "2.0", "双声道" ],
+          [ "5.1,2.0", "5.1 环绕声音" ],
+          [ "7.1,5.1,2.0", "7.1 环绕声音" ]
+        ]
+      },
+      {
+        "value": "device",
+        "display_name": "设备",
+        "help": "允许将媒体强行输出到指定设备. 默认是 \"自动\".",
+        "default": "auto"
+      },
+      {
+        "value": "normalize",
+        "display_name": "标准化",
+        "help": "启用音量标准化.",
+        "default": true
+      },
+      {
+        "value": "exclusive",
+        "display_name": "专用",
+        "help": "设置音频控制专用平台. 默认禁用.",
+        "default": false,
+        "platforms": [ "osx", "windows" ]
+      },
+      {
+        "value": "passthrough.ac3",
+        "display_name": "AC3 直通",
+        "help": "启用 AC3 直通. 需 \"S/PDIF\", 或 \"HDMI\" 设备类型. 默认禁用",
+        "default": false
+      },
+      {
+        "value": "passthrough.dts",
+        "display_name": "DTS 直通",
+        "help": "启用 DTS 直通. 需 \"S/PDIF\", 或 \"HDMI\" 设备类型. 默认禁用.",
+        "default": false
+      },
+      {
+        "value": "passthrough.eac3",
+        "display_name": "E-AC3 直通",
+        "help": "启用 E-AC3 直通. 需 \"HDMI\" 设备类型. 默认禁用.",
+        "default": false,
+        "platforms_excluded": [ "osx", "oe_rpi" ]
+      },
+      {
+        "value": "passthrough.dts-hd",
+        "display_name": "DTS-HD 直通",
+        "help": "启用 DTS-HD 直通. 需 \"HDMI\" 设备类型. 默认禁用.",
+        "default": false,
+        "platforms_excluded": [ "osx", "oe_rpi" ]
+      },
+      {
+        "value": "passthrough.truehd",
+        "display_name": "TrueHD 直通",
+        "help": "启用 TrueHD 直通. 需 \"HDMI\" 设备类型. 默认禁用.",
+        "default": false,
+        "platforms_excluded": [ "osx", "oe_rpi" ]
+      }
+    ]
+  },
+  {
+    "section": "video",
+    "title": "视频",
+    "order": 3,
+    "values": [
+      {
+        "value": "debug.force_vo",
+        "default": "",
+        "hidden": true
+      },
+      {
+        "value": "refreshrate.auto_switch",
+        "display_name": "显示器同步刷新率",
+        "help": "设置显示器与媒体的同步刷新率. 默认禁用.",
+        "default": false
+      },
+      {
+        "value": "refreshrate.delay",
+        "default": 3,
+        "hidden": true
+      },
+      {
+        "value": "refreshrate.avoid_25hz_30hz",
+        "default": true,
+        "hidden": true
+      },
+      {
+        "value": "hardwareDecoding",
+        "display_name": "硬件解码",
+        "help": "设置硬件解码方式. 默认是 \"复制\"\n\n- 启用: 完全硬件加速. 删除MPV渲染管线. 可能经常导致错误\n- 复制: 使用硬件解码但通过MPV渲染管线复制视频.\n- 禁用: 完全禁用硬件解码. 如果使用有问题就使用它.",
+        "default": "copy",
+        "possible_values": [
+          [ "enabled", "启用", { "platforms_excluded": "osx" } ],
+          [ "enabled", "启用 (现代)", { "platforms": "osx" } ],
+          [ "osx_compat", "启用 (旧)", { "platforms": "osx" } ],
+          [ "copy", "复制" ],
+          [ "disabled", "禁用" ]
+        ],
+        "platforms_excluded": "oe_rpi"
+      },
+      {
+        "value": "deinterlace",
+        "display_name": "反交错",
+        "help": "启用反交错. 默认禁用.",
+        "default": false,
+        "platforms_excluded": "oe_rpi"
+      },
+      {
+        "value": "prefer_transcode_to_h265",
+        "display_name": "优先转码为 H.265",
+        "default": false
+      },
+      {
+        "value": "allow_transcode_to_hevc",
+        "display_name": "允许转码为 HEVC",
+        "help": "如果设置, 允许转码为 \"HEVC\" . 默认禁用.\n\n这主要是为了解决杜比视界内容在不该播放时直接播放的问题。",
+        "default": false
+      },
+      {
+        "value": "force_transcode_hevc",
+        "display_name": "强行转码 HEVC",
+        "default": false
+      },
+      {
+        "value": "force_transcode_4k",
+        "display_name": "强行转码 4K",
+        "default": false
+      },
+      {
+        "value": "force_transcode_av1",
+        "display_name": "强行转码 AV1",
+        "default": false
+      },
+      {
+        "value": "force_transcode_hdr",
+        "display_name": "强行转码 HDR",
+        "help": "如果设置, 从视频配置文件中删除 HDR 媒体支持. 默认禁用.",
+        "default": false
+      },
+      {
+        "value": "force_transcode_hi10p",
+        "display_name": "强行转码 Hi10P",
+        "default": false
+      },
+      {
+        "value": "force_transcode_dovi",
+        "display_name": "强行转码杜比视界",
+        "default": true
+      },
+      {
+        "value": "always_force_transcode",
+        "display_name": "总是强行转码",
+        "default": false
+      },
+      {
+        "value": "sync_mode",
+        "display_name": "AV 同步模式",
+        "help": "如何同步音视频.\n\n如果使用该选项，通常要将其设置为显示-采样，以启用计时模式，例如在 24Hz 屏幕上播放 24fps 视频时，该模式会尽量不跳帧或重复帧。\n\n- 音频：为视频帧和音频计时。这是最强大的模式，因为播放器无需假设显示屏的行为。缺点是偶尔会出现丢帧或重复帧。如果禁用音频，则使用系统时钟。这是默认模式。\n\n-重采样：重采样音频以匹配视频。该模式还会尝试调整音频速度以补偿其他漂移。(这意味着它会偶尔以不同的速度播放音频，以减少 A/V 差异）。\n\n- 丢弃音频：丢弃或重复音频数据，以补偿消除同步的视频。如果实际显示器刷新率与报告或强制刷新率相差太大，该模式将导致严重的音频伪影。自 mpv 0.33.0 起，该功能将作用于整个音频帧，而不是单个样本。",
+        "default": "audio",
+        "possible_values": [
+          [ "audio", "音频" ],
+          [ "display-resample", "重采样" ],
+          [ "display-adrop", "丢弃音频" ]
+        ]
+      },
+      {
+        "value": "audio_delay.normal",
+        "default": 0,
+        "hidden": true,
+        "possible_range": {
+          "min": -300,
+          "max": 300,
+          "step": 50
+        }
+      },
+      {
+        "value": "audio_delay.24hz",
+        "default": 0,
+        "hidden": true,
+        "possible_range": {
+          "min": -300,
+          "max": 300,
+          "step": 50
+        }
+      },
+      {
+        "value": "audio_delay.25hz",
+        "default": 0,
+        "hidden": true,
+        "possible_range": {
+          "min": -300,
+          "max": 300,
+          "step": 50
+        }
+      },
+      {
+        "value": "audio_delay.50hz",
+        "default": 0,
+        "hidden": true,
+        "possible_range": {
+          "min": -300,
+          "max": 300,
+          "step": 50
+        }
+      },
+      {
+        "value": "cache",
+        "display_name": "缓冲大小",
+        "help": "视频流缓冲大小(MB). 默认 75 MB",
+        "default": 75,
+        "possible_values": [
+          [ 10, "小 (10 MB)" ],
+          [ 75, "默认 (75 MB)" ],
+          [ 150, "大 (150 MB)", { "platforms_excluded": "oe_rpi" } ],
+          [ 500, "很大 (500 MB)", { "platforms_excluded": "oe_rpi" } ]
+        ]
+      },
+      {
+        "value": "aspect",
+        "display_name": "外观比例",
+        "default": "normal",
+        "possible_values": [
+          [ "custom", "默认" ],
+          [ "normal", "普通" ],
+          [ "zoom", "放大" ],
+          [ "force_4_3", "强制 4:3" ],
+          [ "force_16_9", "强制 16:9" ],
+          [ "force_16_9_if_4_3", "强制 16:9（如果 4:3）" ],
+          [ "stretch", "拉伸" ],
+          [ "noscaling", "不缩放" ]
+        ]
+      },
+      {
+        "value": "default_playback_speed",
+        "display_name": "默认播放速度",
+        "default": 1.0,
+        "possible_values": [
+          [ 0.5, "0.5x" ],
+          [ 0.75, "0.75x" ],
+          [ 1.0, "1x" ],
+          [ 1.25, "1.25x" ],
+          [ 1.5, "1.5x" ],
+          [ 1.75, "1.75x" ],
+          [ 2.0, "2x" ]
+        ]
+      }
+    ]
+  },
+  {
+    "section": "subtitles",
+    "title": "字幕",
+    "order": 4,
+    "values": [
+      {
+        "value": "ass_scale_border_and_shadow",
+        "display_name": "ASS 缩放边框和阴影",
+        "help": "For ASS format subtitles, ensures that the text borders and shadows scale proportionally with the resolution.",
+        "default": true
+      },
+      {
+        "value": "ass_style_override",
+        "display_name": "ASS 风格重载",
+        "help": "控制是否应用用户样式重载。注意，所有这些覆盖选项都会在一定程度上自动判断字幕是否是 “标志”.\n\n否:\t按照字幕脚本指定的方式渲染字幕，不使用覆盖选项）\n是:\t应用所有 --sub-ass-* 风格覆盖选项。改变其中任何一个选项的默认值都可能导致字幕渲染不正确（默认值）。\n强制:\t类似\"是\",但同时强制所有的--sub-*选项。\n缩放:\t类似 \"是\"，但也应用 --sub-scale.\n剥离:\t从根本上剥离字幕中的所有 ASS 标记和样式。这相当于以前的--no-ass / --no-sub-ass选项。尽管选项名称如此，但它还可以控制一些位图字幕覆盖，以及 SRT 等格式中的 HTML 标记。",
+        "default": "",
+        "possible_values": [
+          [ "", "默认" ],
+          [ "yes", "是" ],
+          [ "no", "否" ],
+          [ "force", "强制" ],
+          [ "scale", "缩放" ],
+          [ "strip", "剥离"]
+        ]
+      },
+      {
+        "value": "placement",
+        "display_name": "位置",
+        "default": "",
+        "possible_values": [
+          [ "", "默认" ],
+          [ "left,bottom", "左下" ],
+          [ "right,bottom", "右下" ],
+          [ "center,bottom", "中下" ],
+          [ "left,top", "左上" ],
+          [ "right,top", "右上" ],
+          [ "center,top", "中上" ]
+        ]
+      },
+      {
+        "value": "color",
+        "display_name": "颜色",
+        "default": "",
+        "possible_values": [
+          [ "", "Default" ],
+          [ "#000000", "黑" ],
+          [ "#FFFFFF", "白" ],
+          [ "#EEEEEE", "浅灰" ],
+          [ "#CCCCCC", "混合浅灰" ],
+          [ "#FBF93E", "黄" ],
+          [ "#FFFFCC", "浅黄" ],
+          [ "#EEEDB8", "混合浅黄" ]
+        ]
+      },
+      {
+        "value": "border_color",
+        "display_name": "边框颜色",
+        "default": "",
+        "possible_values": [
+          [ "", "Default" ],
+          [ "#000000", "黑" ],
+          [ "#FFFFFF", "白" ],
+          [ "#EEEEEE", "浅灰" ],
+          [ "#CCCCCC", "混合浅灰" ],
+          [ "#FBF93E", "黄" ],
+          [ "#FFFFCC", "浅黄" ],
+          [ "#EEEDB8", "混合浅黄" ]
+        ]
+      },
+      {
+        "value": "border_size",
+        "display_name": "边框大小",
+        "default": -1,
+        "possible_values": [
+          [ -1, "默认" ],
+          [ 0, "无" ],
+          [ 1, "很细" ],
+          [ 2, "细" ],
+          [ 3, "正常" ],
+          [ 4, "大" ],
+          [ 5, "巨大" ]
+        ]
+      },
+      {
+        "value": "background_color",
+        "display_name": "背景颜色",
+        "default": "",
+        "possible_values": [
+          [ "", "默认" ],
+          [ "#000000", "黑" ],
+          [ "#FFFFFF", "白" ],
+          [ "#EEEEEE", "浅灰" ],
+          [ "#CCCCCC", "混合浅灰" ],
+          [ "#FBF93E", "黄" ],
+          [ "#FFFFCC", "浅灰" ],
+          [ "#EEEDB8", "混合浅黄" ]
+        ]
+      },
+      {
+        "value": "background_transparency",
+        "display_name": "背景透明度",
+        "default": "",
+        "possible_values": [
+          [ "", "默认" ],
+          [ "FF", "0%" ],
+          [ "C0", "25%" ],
+          [ "80", "50%" ],
+          [ "40", "75%" ],
+          [ "00", "100%" ]
+        ]
+      },
+      {
+        "value": "size",
+        "display_name": "大小",
+        "default": -1,
+        "possible_values": [
+          [ -1, "默认" ],
+          [ 18, "很小" ],
+          [ 24, "小" ],
+          [ 32, "正常" ],
+          [ 42, "大" ],
+          [ 60, "巨大" ]
+        ]
+      },
+      {
+        "value": "font",
+        "display_name": "字体",
+        "default": "sans-serif",
+        "possible_values": [
+          [ "", "Default" ],
+          [ "serif", "Serif" ],
+          [ "sans-serif", "Sans-Serif" ],
+          [ "script", "Script" ],
+          [ "monospace", "Monospace" ],
+          [ "display", "Display" ],
+          [ "cursive", "Cursive" ],
+          [ "fantasy", "Fantasy" ]
+        ]
+      }
+    ]
+  },
+  {
+    "section": "path",
+    "title": "路径",
+    "hidden": true,
+    "values": [
+      {
+        "value": "startupurl_desktop",
+        "default": "bundled"
+      },
+      {
+        "value": "startupurl_extension",
+        "default": "bundled"
+      }
+    ]
+  },
+  {
+    "section": "cec",
+    "title": "纠错",
+    "hidden": true,
+    "values": [
+      {
+        "value": "hdmiport",
+        "default": 0
+      },
+      {
+        "value": "verbose_logging",
+        "default": false
+      },
+      {
+        "value": "enable",
+        "default": true
+      },
+      {
+        "value": "suspendonstandby",
+        "default": false
+      },
+      {
+        "value": "poweroffonstandby",
+        "default": false
+      },
+      {
+        "value": "activatesource",
+        "default": true
+      },
+      {
+        "value": "usekeyupdown",
+        "default": false
+      }
+    ]
+  },
+  {
+    "section": "appleremote",
+    "title": "apple遥控",
+    "hidden": true,
+    "values": [
+      {
+        "value": "emulatepht",
+        "default": true
+      }
+    ]
+  },
+  {
+    "section": "system",
+    "title": "系统",
+    "hidden": true,
+    "values": [
+        {
+          "value": "systemname",
+          "default": "JellyfinMediaPlayer",
+          "hidden": true,
+          "platforms": [ "oe" ]
+        },
+        {
+          "value": "lircd_enabled",
+          "default": false,
+          "platforms": [ "oe" ]
+        },
+        {
+          "value": "smbd_enabled",
+          "default": false,
+          "platforms": [ "oe" ]
+        },
+        {
+          "value": "sshd_enabled",
+          "default": false,
+          "platforms": [ "oe" ]
+        }
+    ]
+  },
+  {
+    "section": "other",
+    "title": "其它",
+    "order": 6,
+    "values": [
+      {
+        "value": "other_conf",
+        "display_name": "MPV 设置",
+        "help": "配置必须以与 mpv.conf 相同的格式提供，每项配置都在新的一行中，例如：\"sub-border-size=5\"。只有在重启 Jellyfin 媒体播放器后，从此处和上述设置中删除配置的所有设置值，才能将其恢复为默认值。",
+        "input_type": "textarea",
+        "default": ""
+      }
+    ]
+  }
+]

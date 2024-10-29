@@ -496,8 +496,7 @@ bool SettingsComponent::loadDescription()
   #if defined(Q_OS_LINUX) || defined(Q_OS_FREEBSD)
   QString localeName = QProcessEnvironment::systemEnvironment().value("LANG").split(".").first();
   #else
-  QLocale locale;
-  QString localeName = QLocale::languageToString(locale.language());
+  QString localeName = QLocale::system().name();
   #endif
 
   QString jsonPath = ":/settings/settings_description.json";
