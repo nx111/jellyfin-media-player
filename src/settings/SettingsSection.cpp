@@ -209,6 +209,9 @@ const QVariantMap SettingsSection::sectionOrder() const
   map.insert("key", m_sectionID);
   map.insert("order", m_orderIndex);
   map.insert("title", title());
+  map.insert("help", m_help.isEmpty() ? "" : m_help);
+  map.insert("buttonTitle", m_buttonTitle.isEmpty() ? "" : m_buttonTitle);
+  map.insert("hidden",isHidden());
   return map;
 }
 

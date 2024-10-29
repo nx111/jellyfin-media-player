@@ -2,7 +2,6 @@ const jmpInfo = JSON.parse(decodeURIComponent(window.atob("@@data@@").split('').
         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join('')));
 window.jmpInfo = jmpInfo;
-
 const features = [
     "filedownload",
     "displaylanguage",
@@ -411,10 +410,29 @@ async function showSettingsModal() {
     modalContents.style.marginBottom = "6.2em";
     modalContainer2.appendChild(modalContents);
 
+
     const settingUpdateHandlers = {};
     for (const sectionOrder of jmpInfo.sections.sort((a, b) => a.order - b.order)) {
         const section = sectionOrder.key;
         const title = sectionOrder.title;
+        if (section == "Saved_Server")
+        {
+            var saved_server_title = title;
+            var saved_server_help = sectionOrder.help;
+            if (sectionOrder.buttonTitle)
+            {
+               var saved_server_button_title = sectionOrder.buttonTitle;
+            }
+            continue;
+        }
+        if (section == "global")
+        {
+            if (sectionOrder.buttonTitle){
+                var global_button_title = sectionOrder.buttonTitle;
+            }
+            if (sectionOrder.hidden)
+                continue;
+        }
         const group = document.createElement("fieldset");
         group.className = "editItemMetadataForm editMetadataForm dialog-content-centered";
         group.style.border = 0;
@@ -436,11 +454,17 @@ async function showSettingsModal() {
             legend.appendChild(legendHeader);
             if (section == "plugins") {
                 const legendSubHeader = document.createElement("h4");
-                legendSubHeader.textContent = "Plugins are UNOFFICIAL and require a restart to take effect.";
+                if (sectionOrder.help)
+                    legendSubHeader.textContent = sectionOrder.help;
+                else
+                    legendSubHeader.textContent = "Plugins are UNOFFICIAL and require a restart to take effect.";
                 legend.appendChild(legendSubHeader);
             } else if (section == "other") {                
                 const legendSubHeader = document.createElement("h4");
-                legendSubHeader.textContent = "Use this section to input custom MPV configuration. These will override the above settings.";
+                if (sectionOrder.help)
+                    legendSubHeader.textContent = sectionOrder.help;
+                else
+                    legendSubHeader.textContent = "Use this section to input custom MPV configuration. These will override the above settings.";
                 legend.appendChild(legendSubHeader);
             }
             group.appendChild(legend);
@@ -545,20 +569,29 @@ async function showSettingsModal() {
         modalContents.appendChild(group);
         const legend = document.createElement("legend");
         const legendHeader = document.createElement("h2");
-        legendHeader.textContent = "Saved Server";
-        legend.appendChild(legendHeader);
         const legendSubHeader = document.createElement("h4");
-        legendSubHeader.textContent = (
-            "The server you first connected to is your saved server. " +
-            "It provides the web client for Jellyfin Media Player in the absence of a bundled one. " +
-            "You can use this option to change it to another one. This does NOT log you off."
-        );
+        if (saved_server_title) {
+            legendHeader.textContent = saved_server_title;
+            legendSubHeader.textContent = saved_server_help;
+        }
+        else {
+            legendHeader.textContent = "Saved Server";
+            legendSubHeader.textContent = (
+                "The server you first connected to is your saved server. " +
+                "It provides the web client for Jellyfin Media Player in the absence of a bundled one. " +
+                "You can use this option to change it to another one. This does NOT log you off."
+            );
+        }
+        legend.appendChild(legendHeader);
         legend.appendChild(legendSubHeader);
         group.appendChild(legend);
 
         const resetSavedServer = document.createElement("button");
         resetSavedServer.className = "raised button-cancel block btnCancel emby-button";
-        resetSavedServer.textContent = "Reset Saved Server"
+        if (saved_server_button_title)
+            resetSavedServer.textContent = saved_server_button_title;
+        else
+            resetSavedServer.textContent = "Reset Saved Server";
         resetSavedServer.style.marginLeft = "auto";
         resetSavedServer.style.marginRight = "auto";
         resetSavedServer.style.maxWidth = "50%";
@@ -575,7 +608,10 @@ async function showSettingsModal() {
 
     const close = document.createElement("button");
     close.className = "raised button-cancel block btnCancel formDialogFooterItem emby-button";
-    close.textContent = "Close"
+    if (global_button_title)
+        close.textContent = global_button_title;
+    else
+        close.textContent = "Close"
     close.addEventListener("click", () => {
         modalContainer.remove();
     });

@@ -168,6 +168,7 @@
   },
   {
     "section": "plugins",
+    "help": "Plugins are UNOFFICIAL and require a restart to take effect.",
     "order": 5,
     "values": [
       {
@@ -681,6 +682,7 @@
   },
   {
     "section": "other",
+    "help": "Use this section to input custom MPV configuration. These will override the above settings.",
     "order": 6,
     "values": [
       {
@@ -691,5 +693,12 @@
         "default": ""
       }
     ]
+  },
+  {
+    "section": "Saved_Server",
+    "title": "Saved Server",
+    "help": "The server you first connected to is your saved server. It provides the web client for Jellyfin Media Player in the absence of a bundled one. You can use this option to change it to another one. This does NOT log you off.",
+    "order": 7,
+    "values": []
   }
 ]

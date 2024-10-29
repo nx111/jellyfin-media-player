@@ -48,10 +48,22 @@ public:
      else
         return m_sectionTitle;
   }
+
   void setTitle(QString& m_title)
   {
     m_sectionTitle = m_title;
   }
+
+  void setHelp(QString& help)
+  {
+    m_help = help;
+  }
+
+  void setButtonTitle(QString& buttonTitle)
+  {
+    m_buttonTitle = buttonTitle;
+  }
+  
   void setValueHidden(const QString& value, bool hidden)
   {
     if (m_values.contains(value))
@@ -73,6 +85,8 @@ protected:
   QHash<QString, SettingsValue*> m_values;
   QString m_sectionID;
   QString m_sectionTitle;
+  QString m_help;
+  QString m_buttonTitle;
   int m_orderIndex;
   quint8 m_platform;
   bool m_hidden;

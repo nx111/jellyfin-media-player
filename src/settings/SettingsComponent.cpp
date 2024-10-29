@@ -176,7 +176,7 @@ QVariant SettingsComponent::orderedSections()
 
   for(SettingsSection* section : m_sections.values())
   {
-    if (!section->isHidden())
+    if (!section->isHidden() || section->sectionName() == "global")
       desc.push_back(QJsonValue::fromVariant(section->sectionOrder()));
   }
 
@@ -558,9 +558,21 @@ void SettingsComponent::parseSection(const QJsonObject& sectionObject)
   auto section = new SettingsSection(sectionName, (quint8)platformMask, sectionOrder, this);
   section->setHidden(sectionObject.value("hidden").toBool(false));
   section->setStorage(sectionObject.value("storage").toBool(false));
-  QString sectionTitle = sectionObject.value("title").toString();
-  if (sectionObject.contains("title"))
-      section->setTitle(sectionTitle);
+  if (sectionObject.contains("title")){
+    QString sectionTitle = sectionObject.value("title").toString();
+    section->setTitle(sectionTitle);
+  }
+
+  if (sectionObject.contains("help")){
+    QString sectionHelp = sectionObject.value("help").toString();
+    section->setHelp(sectionHelp);
+  }
+
+if (sectionObject.contains("button_title")){
+    QString sectionButtonTitle = sectionObject.value("button_title").toString();
+    section->setButtonTitle(sectionButtonTitle);
+  }
+
   auto values = sectionObject.value("values").toArray();
   int order = 0;
   for(auto val : values)
@@ -628,7 +640,6 @@ void SettingsComponent::parseSection(const QJsonObject& sectionObject)
           setting->addPossibleValue(vl.at(1).toString(), vl.at(0).toVariant());
       }
     }
-
     section->registerSetting(setting);
   }
 

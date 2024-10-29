@@ -4,6 +4,12 @@
     "version": 6
   },
   {
+    "section": "global",
+    "hidden": true,
+    "button_title": "关闭",
+    "values": []
+  },
+  {
     "section": "state",
     "hidden": true,
     "storage": true,
@@ -170,6 +176,7 @@
   {
     "section": "plugins",
     "title": "插件",
+    "help": "插件为非官方插件，需要重启才能生效。",
     "order": 5,
     "values": [
       {
@@ -691,6 +698,7 @@
   {
     "section": "other",
     "title": "其它",
+    "help": "使用此部分输入自定义 MPV 配置。这些配置将覆盖上面的设置。",
     "order": 6,
     "values": [
       {
@@ -701,5 +709,13 @@
         "default": ""
       }
     ]
+  },
+  {
+    "section": "Saved_Server",
+    "title": "保存的服务器",
+    "help": "你第一次连接的服务器是你保存的服务器。如果没有绑定的 Jellyfin 媒体播放器，它将为Jellyfin媒体播放器提供网络客户端。你可以使用此选项将其更改为另一个。这不会让你登出。",
+    "button_title": "重设保存的服务器",
+    "order": 7,
+    "values": []
   }
 ]
