@@ -414,6 +414,7 @@ async function showSettingsModal() {
     const settingUpdateHandlers = {};
     for (const sectionOrder of jmpInfo.sections.sort((a, b) => a.order - b.order)) {
         const section = sectionOrder.key;
+        const title = sectionOrder.title;
         const group = document.createElement("fieldset");
         group.className = "editItemMetadataForm editMetadataForm dialog-content-centered";
         group.style.border = 0;
@@ -430,7 +431,7 @@ async function showSettingsModal() {
 
             const legend = document.createElement("legend");
             const legendHeader = document.createElement("h2");
-            legendHeader.textContent = section;
+            legendHeader.textContent = title;
             legendHeader.style.textTransform = "capitalize";
             legend.appendChild(legendHeader);
             if (section == "plugins") {

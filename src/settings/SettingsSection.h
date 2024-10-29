@@ -41,6 +41,17 @@ public:
     m_hidden = hidden;
   }
 
+  QString title() const
+  {
+     if (m_sectionTitle.isEmpty())
+        return m_sectionID;
+     else
+        return m_sectionTitle;
+  }
+  void setTitle(QString& m_title)
+  {
+    m_sectionTitle = m_title;
+  }
   void setValueHidden(const QString& value, bool hidden)
   {
     if (m_values.contains(value))
@@ -61,6 +72,7 @@ protected:
 
   QHash<QString, SettingsValue*> m_values;
   QString m_sectionID;
+  QString m_sectionTitle;
   int m_orderIndex;
   quint8 m_platform;
   bool m_hidden;
